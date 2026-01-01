@@ -4,44 +4,45 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gladman's 3D Portfolio</title>
+    
+    <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.4.0/model-viewer.min.js"></script>
+
     <style>
         body {
-            background-color: #1a1a1a; /* Dark background for 3D art */
+            background-color: #121212; /* Dark background */
             color: white;
             font-family: Arial, sans-serif;
             text-align: center;
             margin: 0;
             padding: 20px;
         }
-        h1 { margin-bottom: 10px; }
         
-        /* This styles the 3D viewer window */
+        h1 { margin-bottom: 20px; }
+
+        /* This controls the 3D window size */
         model-viewer {
             width: 100%;
-            height: 400px;
+            height: 500px; /* Adjust height here if needed */
             background-color: #2b2b2b;
             margin: 0 auto;
-            border-radius: 8px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
         }
     </style>
-    
-    <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.4.0/model-viewer.min.js"></script>
 </head>
 <body>
 
-    <h1>Gladman 3D</h1>
-    <p>Welcome to my portfolio. Interact with the model below!</p>
+    <h1>Gladman 3D - Axe Model</h1>
+    <p>Use your mouse or finger to rotate and zoom.</p>
 
     <model-viewer 
-        src="axe.glb"
+        src="axe.glb" 
         alt="A 3D model of an axe" 
         auto-rotate 
         camera-controls 
         ar 
         shadow-intensity="1">
     </model-viewer>
-
-    <p>Available for freelance work.</p>
 
 </body>
 </html>
