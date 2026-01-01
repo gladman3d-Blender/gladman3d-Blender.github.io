@@ -3,46 +3,136 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gladman's 3D Portfolio</title>
+    <title>Gladman's 3D Gallery</title>
     
     <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.4.0/model-viewer.min.js"></script>
 
     <style>
+        /* --- GENERAL STYLES --- */
         body {
-            background-color: #121212; /* Dark background */
+            background-color: #121212;
             color: white;
             font-family: Arial, sans-serif;
-            text-align: center;
             margin: 0;
             padding: 20px;
+            text-align: center;
         }
-        
-        h1 { margin-bottom: 20px; }
 
-        /* This controls the 3D window size */
-        model-viewer {
-            width: 100%;
-            height: 500px; /* Adjust height here if needed */
-            background-color: #2b2b2b;
+        h1 { margin-bottom: 40px; color: #4CAF50; }
+
+        /* --- THE GALLERY GRID --- */
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            max-width: 1000px;
             margin: 0 auto;
-            border-radius: 10px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
         }
+
+        /* The clickable cards */
+        .card {
+            background-color: #2b2b2b;
+            padding: 20px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: transform 0.2s, background-color 0.2s;
+            border: 1px solid #444;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            background-color: #383838;
+            border-color: #4CAF50;
+        }
+
+        .card h3 { margin: 0; font-size: 1.2rem; }
+        .card p { color: #aaa; font-size: 0.9rem; }
+
+        /* --- THE POPUP (MODAL) --- */
+        #model-modal {
+            display: none; /* Hidden by default */
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background-color: rgba(0,0,0,0.9); /* Black background with transparency */
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+        }
+
+        /* The 3D Viewer inside the popup */
+        model-viewer {
+            width: 80%;
+            height: 70%;
+            background-color: #1e1e1e;
+            border-radius: 8px;
+        }
+
+        /* The Close Button */
+        .close-btn {
+            margin-top: 20px;
+            padding: 10px 30px;
+            background-color: #ff4444;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1.2rem;
+        }
+        .close-btn:hover { background-color: #cc0000; }
+
     </style>
 </head>
 <body>
 
-    <h1>Gladman 3D - Axe Model</h1>
-    <p>Use your mouse or finger to rotate and zoom.</p>
+    <h1>Gladman's 3D Work</h1>
+    <p>Click a model to view it in 3D.</p>
 
-    <model-viewer 
-        src="axe.glb" 
-        alt="A 3D model of an axe" 
-        auto-rotate 
-        camera-controls 
-        ar 
-        shadow-intensity="1">
-    </model-viewer>
+    <div class="gallery">
+        
+        <div class="card" onclick="openViewer('axe.glb')">
+            <h3>Battle Axe</h3>
+            <p>Click to View</p>
+        </div>
+
+        <div class="card" onclick="openViewer('car.glb')">
+            <h3>Future Car</h3>
+            <p>(Example - Link not working yet)</p>
+        </div>
+
+    </div>
+
+    <div id="model-modal">
+        <model-viewer 
+            id="viewer"
+            src="" 
+            alt="3D Model" 
+            auto-rotate 
+            camera-controls 
+            shadow-intensity="1">
+        </model-viewer>
+        
+        <button class="close-btn" onclick="closeViewer()">Close X</button>
+    </div>
+
+    <script>
+        // Use JavaScript to grab the modal and the viewer element
+        const modal = document.getElementById('model-modal');
+        const viewer = document.getElementById('viewer');
+
+        // Function to OPEN the popup
+        function openViewer(fileName) {
+            viewer.src = fileName; // Change the model file
+            modal.style.display = "flex"; // Show the window
+        }
+
+        // Function to CLOSE the popup
+        function closeViewer() {
+            modal.style.display = "none"; // Hide the window
+            viewer.src = ""; // Stop loading the model
+        }
+    </script>
 
 </body>
 </html>
